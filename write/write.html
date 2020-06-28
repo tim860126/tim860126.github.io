@@ -1,0 +1,164 @@
+﻿<html>
+
+<style>
+body{background-color: #FFFFFF}
+.chatbox{
+  
+  padding: 10px;
+  margin: 0 auto;
+  width: 700px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "-apple-system", BlinkMacSystemFont, "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "メイリオ", "Hiragino Kaku Gothic ProN", "MS PGothic", Osaka, "sans-serif";
+}
+
+.chatbox .chatitem{
+  
+  margin: 40px;
+  padding-top:20px;
+  padding-left:5px;
+  border:2px #ccc solid;
+  border-radius:10px;
+  width:250px;
+  height:20px;
+  background-color: #c3f69d;
+  min-height: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: flex-end;
+  font-weight: bold;
+  font-size: 25px;
+}
+.wrapper{
+  border:2px #ccc solid;
+  border-radius:10px;
+  padding: 10px;
+  margin: 0 auto;
+  width: 700px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "-apple-system", BlinkMacSystemFont, "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "メイリオ", "Hiragino Kaku Gothic ProN", "MS PGothic", Osaka, "sans-serif";
+}
+.wrapper .item {
+  
+  visibility: hidden;
+  display: none;
+}
+.wrapper h2 {
+  font-size: 50px;
+  margin: 0;
+  color: #3a3a3a;
+  text-align: left;
+}
+.wrapper > div {
+  min-height: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: flex-end;
+  font-weight: bold;
+  font-size: 50px;
+  
+}
+.wrapper > div:after {
+  content: "";
+  width: 10px;
+  height: 4px;
+  display: block;
+  background: black;
+  color: orange;
+  margin-bottom: 4px;
+  margin-left: 2px;
+  animation-duration: 350ms;
+  animation-name: fade;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fade {
+  
+  from {
+    opacity: 1;
+	color:red;
+  }
+  to {
+    opacity: 0;
+  }
+}
+</style>
+
+<body>
+
+<div class="chatbox">
+	<div id="chat1" class="chatitem" style="visibility:hidden;">我想跟你說一件事‧‧‧</div>
+	<div id="chat2" class="chatitem" style="width:275px;visibility:hidden">今夜は月が綺麗ですね</div>
+	<div id="chat3" class="chatitem" style="background-color:#eee;float:right;padding-top:30px;visibility:hidden">りしれ供さ小ಠ_ಠ</div>
+</div>
+
+<div class="wrapper">
+ 
+  
+ 
+  <div data-text></div>
+ <span class="item">我想跟你說一件事‧‧‧</span>
+  <span class="item">今夜は月が綺麗ですね</span>
+   <span class="item">りしれ供さ小ಠ_ಠ</span>
+ 
+</div>
+
+
+</body>
+
+<script>
+let wrapper;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function writingAll(stringTarget, container) {
+  wrapper = document.querySelector('[' + container + ']');
+  const stringsContainer = document.getElementsByClassName(stringTarget);
+
+  
+    for (i = 0; i < stringsContainer.length; i++) {
+      const string = stringsContainer[i].textContent;
+	  await sleep(1000);
+	  if(i==0||i==1)
+	  {
+      await write(string,200);
+      }
+	  else
+	  {
+	  await write(string,50);
+	  }
+	  await sleep(500);
+	  document.getElementById("chat"+(i+1)).style.visibility='visible';
+    };
+  
+};
+
+async function write(text,timeout) {
+  let index = 0;
+  while (index < text.length) {
+    await sleep(timeout);
+    index++;
+    wrapper.innerHTML = text.substring(0, index);
+  }
+};
+
+async function erase() {
+  while (wrapper.textContent.length) {
+    const timeout = 100;
+    await sleep(timeout);
+    wrapper.textContent = wrapper.textContent.substring(0, wrapper.textContent.length - 1);
+  }
+};
+
+writingAll('item', 'data-text');
+</script>
+
+</html>
