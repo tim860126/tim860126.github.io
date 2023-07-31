@@ -55,7 +55,9 @@
 				let xMotion = round(width / 2 + rotationY * 10);
 				var LM = 0;
 				var RM = 0;
-				
+				console.log(LM);
+				console.log(RM);
+				console.log(a);
 				if(xMotion <= -300)
 				{
 					LM = 1;
@@ -66,7 +68,7 @@
 					RM = 1;
 				}
 				
-				if(LM==1 && RM ==1)
+				if(LM==1 && RM==1)
 				{
 					a = a + 1;
 					LM = 0;
@@ -74,7 +76,8 @@
 				}
 				
 				if (millis() - lastUpdateTime >= 300) {
-                    a -= 1; 
+					if(a>0)
+						a -= 1; 
                     lastUpdateTime = millis(); 
                 }
 				
