@@ -53,6 +53,16 @@
 				let yMotion = round(height / 2 + rotationX * 10);
 				let xMotion = round(width / 2 + rotationY * 10);
 				
+				if(xMotion <= -300 or xMotion >=500)
+				{
+					if(a<=10)
+						a = a + 1;
+				}else
+				{
+					if(a>=0)
+						a = a - 1;
+				}
+				
                 background(255);
                 parser.set('a', a);
 
