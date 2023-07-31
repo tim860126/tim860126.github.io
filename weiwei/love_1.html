@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.2/math.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    </head>
+    <body>
+        <script>
+            const expression = 'abs(x)^(2/3) + 0.9 * (5 - abs(x)^2)^(1/2) * sin(a * pi * abs(x))';  
+
+            let a = 1; 
+			let slider; 
+
+            const parser = math.parser();
+
+            function setup() {
+                createCanvas(windowWidth, windowHeight);
+                slider = createSlider(0, 10, 0, 0.5);
+                slider.position(windowWidth / 2 - slider.width / 2, 20); 
+            }
+
+            function draw() {
+                background(255);
+				a = slider.value(); 
+                parser.set('a', a);
+
+
+                translate(width / 2, height / 2);
+                scale(1, -1);
+                stroke(255, 0, 0);
+                beginShape();
+                
+                for(let x = -width / 2; x <= width / 2; x += 0.9) {
+					console.log(x);
+                    parser.set('x', x / 100);
+                    let y = parser.evaluate(expression);
+                    vertex(x, y * 80);
+                }
+
+                endShape();
+            }
+			
+			 function windowResized() {
+                resizeCanvas(windowWidth, windowHeight); 
+                slider.position(windowWidth / 2 - slider.width / 2, 20); 
+            }
+        </script>
+    </body>
+</html>
