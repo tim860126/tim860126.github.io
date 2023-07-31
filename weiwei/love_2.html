@@ -53,11 +53,24 @@
 				// x and y values moved from the centre point;
 				let yMotion = round(height / 2 + rotationX * 10);
 				let xMotion = round(width / 2 + rotationY * 10);
+				var LM = 0;
+				var RM = 0;
 				
-				if(xMotion <= -300 || xMotion >=500)
+				if(xMotion <= -300)
 				{
-					if(a<=10)
-						a = a + 1;
+					LM = 1;
+				}
+				
+				if(xMotion >= 600)
+				{
+					RM = 1;
+				}
+				
+				if(LM==1 && RM ==1)
+				{
+					a = a + 1;
+					LM = 0;
+					RM = 0;
 				}
 				
 				if (millis() - lastUpdateTime >= 300) {
