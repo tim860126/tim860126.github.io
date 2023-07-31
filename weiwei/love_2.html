@@ -36,6 +36,8 @@
 			
             const expression = 'abs(x)^(2/3) + 0.9 * (5 - abs(x)^2)^(1/2) * sin(a * pi * abs(x))';  
 
+			var LM = 0;
+			var RM = 0;
             let a = 0; 
 			let lastUpdateTime = 0; // 上次更新a的時間
 			//let slider; 
@@ -53,17 +55,16 @@
 				// x and y values moved from the centre point;
 				let yMotion = round(height / 2 + rotationX * 10);
 				let xMotion = round(width / 2 + rotationY * 10);
-				var LM = 0;
-				var RM = 0;
+				
 				console.log(LM);
 				console.log(RM);
 				console.log(a);
-				if(xMotion <= -300)
+				if(xMotion <= -200)
 				{
 					LM = 1;
 				}
 				
-				if(xMotion >= 600)
+				if(xMotion >= 500)
 				{
 					RM = 1;
 				}
