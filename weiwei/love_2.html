@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.2/math.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+		
+	</head>
+    <body>
+        <script>
+			let motion = false;
+			let ios = false;
+
+			// below code is essential for ios13 and above. 
+			// A click is needed for the device to request permission 
+			if (typeof DeviceMotionEvent.requestPermission === 'function') {
+			  document.body.addEventListener('click', function() {
+				DeviceMotionEvent.requestPermission()
+				  .then(function() {
+					console.log('DeviceMotionEvent enabled');
+
+					motion = true;
+					ios = true;
+				  })
+				  .catch(function(error) {
+					console.warn('DeviceMotionEvent not enabled', error);
+				  })
+			  })
+			} else {
+			  // we are not on ios13 and above
+			  // todo
+			  // add detection for hardware for other devices
+			  // if(got the hardware) {
+			  // motion = true;
+			  // }
+			}
+			
+            const expression = 'abs(x)^(2/3) + 0.9 * (5 - abs(x)^2)^(1/2) * sin(a * pi * abs(x))';  
+
+            let a = 0; 
+			//let slider; 
+
+            const parser = math.parser();
+
+            function setup() {
+                createCanvas(windowWidth, windowHeight);
+                //slider = createSlider(0, 10, 0, 0.5);
+                //slider.position(windowWidth / 2 - slider.width / 2, 20); 
+            }
+
+            function draw() {
+				let zMotion = round(width / 5 * abs(radians(rotationZ) - PI));
+				// x and y values moved from the centre point;
+				let yMotion = round(height / 2 + rotationX * 10);
+				let xMotion = round(width / 2 + rotationY * 10);
+				
+                background(255);
+                parser.set('a', a);
+
+				
+
+                translate(width / 2, height / 2);
+				stroke(255, 0, 0);
+				textSize(width / 35)
+                text("circle - x: " + xMotion + ", y: " + yMotion + ", radius: " + zMotion, 0, 200)
+                scale(1, -1);
+                
+                beginShape();
+				
+				
+                for(let x = -width / 2; x <= width / 2; x += 0.9) {
+                    parser.set('x', x / 100);
+                    let y = parser.evaluate(expression);
+                    vertex(x, y * 80);
+                }
+
+                endShape();
+            }
+			
+			 function windowResized() {
+                resizeCanvas(windowWidth, windowHeight); 
+                //slider.position(windowWidth / 2 - slider.width / 2, 20); 
+            }
+        </script>
+    </body>
+</html>
