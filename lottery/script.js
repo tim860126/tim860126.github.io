@@ -78,5 +78,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 每隔 100ms 生成一個雪花
-    setInterval(createSnowflake, 100);
+    setInterval(createSnowflake, 300);
 });
