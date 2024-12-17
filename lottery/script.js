@@ -49,11 +49,7 @@ function displayResult() {
 }
 
 lockTitle.addEventListener("click", () => {
-    if (!isHiddenMode) {
-        isHiddenMode = true;
-    } else {
-        isHiddenMode = false;
-    }
+    isHiddenMode = true;
 });
 
 
